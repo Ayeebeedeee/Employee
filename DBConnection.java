@@ -1,19 +1,25 @@
-import java.sql.*;
-public class DBConnection
-{
-    public static Connection connect()
-    {
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class DBConnection {
+
+    public static Connection getConnection() {
+
+        Connection con = null;
+
         try {
+            Class.forName("org.postgresql.Driver");
+
             String url = "jdbc:postgresql://localhost:5432/company";
             String user = "postgres";
-            String pass = "ABSnow@12feb";
-            Class.forName("org.postgresql.Driver");
-            return DriverManager.getConnection(url, user, pass);
+            String password = "your_password"; // 🔴 change this
+
+            con = DriverManager.getConnection(url, user, password);
+
         } catch (Exception e) {
-            // TODO: handle exception
-            System.err.println("Conenction failed: "+e);
-            return null;
+            System.out.println("Connection failed: " + e);
         }
-        
+
+        return con;
     }
 }
